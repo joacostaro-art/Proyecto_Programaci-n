@@ -2,7 +2,7 @@
 
 División de Trabajo:
 Integrante 1:
-Hace el esqueleto del archivo, se encargar de la carga y el provcesamiento del archivo scv.
+Hace el esqueleto del archivo, se encargar de la carga y el provcesamiento del archivo csv.
 Integrante 2:
 Se encarga de el desarrollo de la primera función obligatoria. 
 Integrante 3:
@@ -10,10 +10,9 @@ Se encarga de el desarrolllo de la segunda función obligatoria.
 Integrante 4:
 Define y desarrolla la función opcional para el código.
 Integrante 5:
-Desarrolla dos funciones del código propias para completar y tenere el requerimiento minimo a sustentar en el proyecto
-también se encarga del entregable en donde explicamos y desarrollamos la división de roles.
+README.md, Video y Producto Creativo (Póster Digital)
 Integrante 6:
-Desarrolla el video desmostrativo y el read.me del proyecto.
+Documento de contribuciones (1 página) + Verificación y pruebas del repositorio
 """
 
 def cargar_archivo(ruta_documento):
