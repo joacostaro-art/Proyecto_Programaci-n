@@ -115,7 +115,7 @@ def cargar_menu():
     print("="*55)
 
 def ejecutar_code():
-    Data_set = "goals.csv"
+    Data_set = "goals_pequeno.csv"
     try:# intenta realizar la acción y si dispara un error manda el except
         columnas, filas = cargar_archivo(Data_set)
         print(f" Dataset cargado exitosamente: {len(filas)} registros cargados.")
