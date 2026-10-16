@@ -50,19 +50,6 @@ def cargar_archivo(ruta_documento):
     return columnas, filas
 
 #1. BUSCAR POR TEXTO
-def impresor_fila(fila, termino = "SIN VALOR"):#funcion para imprimir las filas y contar los terimnos
-    fila_valida = 0
-    
-    for celda in fila:
-        if termino in celda.casefold():
-            print("|", f"--> {celda} <--", end=" ")#imprime y señala la celda
-            fila_valida = 1 
-        else:
-            print("|", celda, end=" ") #imprime la celda sin señalar
-    print() # da espacio al imprimer el siguiene enunciado
-    print() 
-    return fila_valida
-
 def verificador_de_estado(): #verifica si continua en en el apartado de buqueda
 
     YN = input("Deseas volver a buscar? Y/N: ").strip().casefold() #pregunta al usuario que quiere hacer
@@ -76,7 +63,20 @@ def verificador_de_estado(): #verifica si continua en en el apartado de buqueda
     else:
         print("Comando no reconocido.")
         return verificador_de_estado() # se llama a si mismo a que la respuesta sea valida
+  
+def impresor_fila(fila, termino = "SIN VALOR"):#funcion para imprimir las filas y contar los terimnos
+    fila_valida = 0
     
+    for celda in fila:
+        if termino in celda.casefold():
+            print("|", f"--> {celda} <--", end=" ")#imprime y señala la celda
+            fila_valida = 1 
+        else:
+            print("|", celda, end=" ") #imprime la celda sin señalar
+    print() # da espacio al imprimer el siguiene enunciado
+    print() 
+    return fila_valida
+
     
 def Buscar_Texto(columnas, filas):
     estado = True # inicia con estado true para el bucle
