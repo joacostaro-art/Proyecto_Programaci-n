@@ -39,6 +39,8 @@ Proyecto_Programaci-n/
 ## 🚀 Instrucciones de Ejecución 
 1. Asegúrate de tener instalado **Python 3.x**.
 2. Clona el repositorio o descarga los archivos en tu equipo.
-3. Ejecuta el programa principal desde tu terminal o consola:
+3. Abre en tu editor de codigo la carpeta completa del repositorio ya descomprimido
+4. desde la terminal ingresa la dirección para que el main corra perfectamente
+5. Ejecuta el programa principal desde tu terminal o consola:
    ```bash
    python main.py
