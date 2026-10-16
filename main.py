@@ -217,43 +217,123 @@ def agrupar_goles_por_seleccion(columnas, filas):
     return ranking_equipos
         
 #4.MEJOR EQUIPO DE LA HISTORIA
-def mejor_equipo(columnas, filas):
-    """
-    Pregunta si el mejor equipo se define por goles o por partidos ganados
-    y muestra el top 5 con el equipo ganador.
-    """
+def contar_goles(columnas, filas):
+    """Recorre las filas y devuelve {equipo: total de goles}."""
+    # Posición de la columna que dice a qué equipo se le acredita el gol.
+    # Se busca por nombre para no depender de un número fijo.
+    i_equipo = columnas.index("team_name")
  
-    # posiciones de las columnas que necesitamos
-    i_partido = columnas.index("match_id")
-    i_nombre_partido = columnas.index("match_name")
-    i_equipo = columnas.index("team_name")  # equipo al que se le acredita el gol
+    goles = {}  # aquí se acumula: equipo -> cantidad de goles
  
-    goles = {}     # equipo -> total de goles
-    partidos = {}  # id del partido -> {equipo: goles en ese partido}
- 
+    # Cada fila del CSV es UN gol, así que basta sumar 1 por fila
     for fila in filas:
         equipo = fila[i_equipo]
-        id_partido = fila[i_partido]
- 
+        # get(equipo, 0): si el equipo aún no está, empieza en 0
         goles[equipo] = goles.get(equipo, 0) + 1
  
-        # "Argentina vs Chile" -> crea el marcador con ambos equipos en 0
+    return goles
+ 
+ 
+def armar_marcadores(columnas, filas):
+    """Devuelve {id_partido: {equipo: goles en ese partido}}."""
+    # Posiciones de las 3 columnas que necesitamos
+    i_partido = columnas.index("match_id")
+    i_nombre_partido = columnas.index("match_name")
+    i_equipo = columnas.index("team_name")
+ 
+    partidos = {}  # id del partido -> marcador de ese partido
+ 
+    for fila in filas:
+        id_partido = fila[i_partido]
+        equipo = fila[i_equipo]
+ 
+        # Primera vez que vemos este partido: creamos su marcador
         if id_partido not in partidos:
             partidos[id_partido] = {}
+            # "Argentina vs Chile" -> ["Argentina", "Chile"]
+            # Ambos equipos arrancan en 0 para que el que pierda 0-2
+            # también aparezca en el marcador.
             for nombre in fila[i_nombre_partido].split(" vs "):
                 partidos[id_partido][nombre] = 0
  
-        partidos[id_partido][equipo] += 1
+        # Sumamos el gol de esta fila al equipo que lo anotó
+        partidos[id_partido][equipo] = partidos[id_partido].get(equipo, 0) + 1
  
-    # gana el equipo que anotó más goles en ese partido
-    ganados = {}
+    return partidos
+ 
+ 
+def contar_partidos_ganados(partidos):
+    """Gana el equipo que anotó más goles en cada partido. Devuelve {equipo: victorias}."""
+    ganados = {}  # equipo -> cantidad de partidos ganados
+ 
     for marcador in partidos.values():
+        # Un partido válido tiene exactamente 2 equipos; si no, se ignora
+        if len(marcador) != 2:
+            continue
+ 
+        # items() da dos pares (equipo, goles); se reparten en 4 variables
         (equipo_a, goles_a), (equipo_b, goles_b) = marcador.items()
+ 
         if goles_a > goles_b:
             ganados[equipo_a] = ganados.get(equipo_a, 0) + 1
         elif goles_b > goles_a:
             ganados[equipo_b] = ganados.get(equipo_b, 0) + 1
+        # Si empatan no se suma nada: un empate no es victoria
  
+    return ganados
+ 
+ 
+def armar_ranking(datos):
+    """Ordena de mayor a menor; si empatan, orden alfabético. Devuelve lista de (equipo, valor)."""
+    # datos.items() -> pares (equipo, valor)
+    # key: tupla (-valor, nombre). El signo menos hace que el valor
+    # se ordene de mayor a menor, y el nombre desempata alfabéticamente.
+    return sorted(datos.items(), key=lambda par: (-par[1], par[0]))
+ 
+ 
+def buscar_mejores(ranking):
+    """Devuelve la lista de equipos que comparten el primer puesto."""
+    # Si no hay datos, no hay mejores
+    if not ranking:
+        return []
+ 
+    # El primero del ranking tiene el valor más alto
+    mejor_valor = ranking[0][1]
+ 
+    # Todos los equipos con ese mismo valor están empatados en el primer puesto
+    return [equipo for equipo, valor in ranking if valor == mejor_valor]
+ 
+ 
+def mostrar_resultado(ranking, titulo):
+    """Imprime el top 5 y el mejor equipo (o el empate)."""
+    print(f"\nTop 5 por {titulo}:")
+ 
+    # ranking[:5] toma solo los 5 primeros; start=1 numera desde 1
+    for posicion, (equipo, valor) in enumerate(ranking[:5], start=1):
+        print(f"{posicion}. {equipo}: {valor}")
+ 
+    mejores = buscar_mejores(ranking)
+    if len(mejores) == 1:
+        print(f"\nMejor equipo por {titulo}: {mejores[0]}")
+    else:
+        # Más de un equipo con el valor máximo -> hay empate
+        print(f"\nEmpate en {titulo} entre: {', '.join(mejores)}")
+ 
+ 
+def mejor_equipo(columnas, filas):
+    """
+    Pregunta si el mejor equipo se define por goles o por partidos ganados
+    y muestra el top 5 con el equipo ganador.
+    Devuelve un diccionario con la última consulta hecha (o None si no hizo ninguna).
+    """
+    # Los datos no cambian, así que se calculan una sola vez (fuera del menú)
+    # Los datos no cambian, así que se calculan una sola vez (fuera del menú)
+    goles = contar_goles(columnas, filas)
+    ganados = contar_partidos_ganados(armar_marcadores(columnas, filas))
+ 
+    resultado = None  # se llena cuando el usuario hace una consulta válida
+ 
+    # Menú que se repite hasta que el usuario elija volver
     while True:
         print("\n¿Qué hace a una selección la mejor?")
         print("1. Cantidad de goles")
@@ -262,32 +342,23 @@ def mejor_equipo(columnas, filas):
         opcion = input("Elige una opción (1-3): ").strip()
  
         if opcion == "3":
-            break
+            break  # sale del menú y vuelve al programa principal
         elif opcion == "1":
-            datos = goles
-            titulo = "goles"
+            datos, titulo = goles, "goles"
         elif opcion == "2":
-            datos = ganados
-            titulo = "partidos ganados"
+            datos, titulo = ganados, "partidos ganados"
         else:
             print("Opción no válida. Ingresa 1, 2 o 3.")
-            continue
+            continue  # vuelve a mostrar el menú
  
-        # mayor a menor; si empatan, orden alfabético
-        ranking = sorted(datos.items(), key=lambda par: (-par[1], par[0]))
+        # Con el criterio elegido: ordenar, mostrar y guardar el resultado
+        ranking = armar_ranking(datos)
+        mostrar_resultado(ranking, titulo)
+        resultado = {"criterio": titulo, "ranking": ranking,
+                     "mejores": buscar_mejores(ranking)}
  
-        print(f"\nTop 5 por {titulo}:")
-        for posicion, (equipo, valor) in enumerate(ranking[:5], start=1):
-            print(f"{posicion}. {equipo}: {valor}")
- 
-        mejor_valor = ranking[0][1]
-        mejores = [equipo for equipo, valor in ranking if valor == mejor_valor]
- 
-        if len(mejores) == 1:
-            print(f"\nMejor equipo por {titulo}: {mejores[0]}")
-        else:
-            print(f"\nEmpate en {titulo} entre: {', '.join(mejores)}")
- #
+    return resultado
+#FUNCION PRINCIPAL    
 def cargar_menu():
 
     print("\n" + "="*55)
