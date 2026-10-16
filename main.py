@@ -92,11 +92,11 @@ def Buscar_Texto(columnas, filas):
             for celda in fila: #seleciona cada celda de la fila
 
                 if termino in celda.casefold(): # compara las celdas con en termino
-                    contador += 1 # suma a la cantidad de registros encontrados
 
                     if fila_procesada != fila[0]: #evita imprimir la misma fila dos veces
                         impresor_fila(fila, termino) #imprime la fila y señala el termino
                         fila_procesada = fila[0] #odtiene el valor de la fila que ya se imprimio
+                        contador += 1 # suma a la cantidad de registros encontrados
 
         print(f"Se encontraron {contador} filas con el Termino '{termino}'.") #imprime la cantidad de registros encontrados
         estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
