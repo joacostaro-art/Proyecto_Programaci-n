@@ -48,7 +48,7 @@ def cargar_archivo(ruta_documento):
                     arreglo_filas = Linea_nueva.split(',')#Divide toda la fila en un arreglo
                     filas.append(arreglo_filas)#los agrega a la lista previamente creada
     return columnas, filas
-
+#1. BUSCAR POR TEXTO
 def impresor_fila(fila, termino = "SIN VALOR"):#funcion para imprimir las filas
         
         for celda in fila: #selecciona cada celda de la fila a imprimir
@@ -101,7 +101,79 @@ def Buscar_Texto(columnas, filas):
         print(f"Se encontraron {contador} filas con el Termino '{termino}'.") #imprime la cantidad de registros encontrados
         estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
         contador = 0 #reinicia el contador
-
+#
+#4.MEJOR EQUIPO DE LA HISTORIA
+def mejor_equipo(columnas, filas):
+    """
+    Pregunta si el mejor equipo se define por goles o por partidos ganados
+    y muestra el top 5 con el equipo ganador.
+    """
+ 
+    # posiciones de las columnas que necesitamos
+    i_partido = columnas.index("match_id")
+    i_nombre_partido = columnas.index("match_name")
+    i_equipo = columnas.index("team_name")  # equipo al que se le acredita el gol
+ 
+    goles = {}     # equipo -> total de goles
+    partidos = {}  # id del partido -> {equipo: goles en ese partido}
+ 
+    for fila in filas:
+        equipo = fila[i_equipo]
+        id_partido = fila[i_partido]
+ 
+        goles[equipo] = goles.get(equipo, 0) + 1
+ 
+        # "Argentina vs Chile" -> crea el marcador con ambos equipos en 0
+        if id_partido not in partidos:
+            partidos[id_partido] = {}
+            for nombre in fila[i_nombre_partido].split(" vs "):
+                partidos[id_partido][nombre] = 0
+ 
+        partidos[id_partido][equipo] += 1
+ 
+    # gana el equipo que anotó más goles en ese partido
+    ganados = {}
+    for marcador in partidos.values():
+        (equipo_a, goles_a), (equipo_b, goles_b) = marcador.items()
+        if goles_a > goles_b:
+            ganados[equipo_a] = ganados.get(equipo_a, 0) + 1
+        elif goles_b > goles_a:
+            ganados[equipo_b] = ganados.get(equipo_b, 0) + 1
+ 
+    while True:
+        print("\n¿Qué hace a una selección la mejor?")
+        print("1. Cantidad de goles")
+        print("2. Partidos ganados")
+        print("3. Volver al menú principal")
+        opcion = input("Elige una opción (1-3): ").strip()
+ 
+        if opcion == "3":
+            break
+        elif opcion == "1":
+            datos = goles
+            titulo = "goles"
+        elif opcion == "2":
+            datos = ganados
+            titulo = "partidos ganados"
+        else:
+            print("Opción no válida. Ingresa 1, 2 o 3.")
+            continue
+ 
+        # mayor a menor; si empatan, orden alfabético
+        ranking = sorted(datos.items(), key=lambda par: (-par[1], par[0]))
+ 
+        print(f"\nTop 5 por {titulo}:")
+        for posicion, (equipo, valor) in enumerate(ranking[:5], start=1):
+            print(f"{posicion}. {equipo}: {valor}")
+ 
+        mejor_valor = ranking[0][1]
+        mejores = [equipo for equipo, valor in ranking if valor == mejor_valor]
+ 
+        if len(mejores) == 1:
+            print(f"\nMejor equipo por {titulo}: {mejores[0]}")
+        else:
+            print(f"\nEmpate en {titulo} entre: {', '.join(mejores)}")
+ #
 def cargar_menu():
 
     print("\n" + "="*55)
@@ -140,7 +212,7 @@ def ejecutar_code():
 
         elif opcion == "4":
             print("\n--- ANÁLISIS CRITERIOS MEJOR EQUIPO DE LA HISTORIA ---")
-            
+            mejor_equipo(columnas, filas)
         elif opcion == "5":
             print("\n Saliendo del sistema DataLab. ¡Hasta luego!")
             break
