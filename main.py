@@ -152,8 +152,72 @@ def estadisticas_basicas(columnas, filas):
         print("="*55)
     else:
         print("No se encontraron datos numéricos.")
+        return None
                     
-#
+#3. AGRUPAR GOLES POR SELECCIÓN
+def agrupar_goles_por_seleccion(columnas, filas):
+    """
+    Agrupa y cuenta cuántos goles hay por cada seleccion nacional ordeanos de mayor a menor 
+    y calcula la proporción de penaltis frente a jugada en cancha"""
+    indice_equipo = -1
+    indice_penalti = -1
+    indice_autogol = -1
+
+    for i in range(len(columnas)):
+         nombre_col = columnas[i].strip()
+        if nombre_col == "team_name":
+            indice_equipo = i
+        elif nombre_col == "penalty":
+            indice_penalti = i
+        elif nombre_col == "own_goal":
+            indice_autogol = i
+
+    if indice_equipo == -1:
+        print("Error: No se encontró la columna 'team_name'.")
+        return []
+
+    conteo_equipos = {}
+    penaltis = 0
+    jugada_regular = 0
+    autogoles = 0
+
+    for fila in filas:
+        if len(fila) > indice_equipo:
+            equipo = fila[indice_equipo].strip()
+            if equipo != "":
+                conteo_equipos[equipo] = conteo_equipos.get(equipo, 0) + 1
+
+        if indice_penalti != -1 and len(fila) > indice_penalti:
+            if fila[indice_penalti].strip() == "1":
+                penaltis += 1
+            else:
+                jugada_regular += 1
+
+        if indice_autogol != -1 and len(fila) > indice_autogol:
+            if fila[indice_autogol].strip() == "1":
+                autogoles += 1
+
+    ranking_equipos = sorted(conteo_equipos.items(), key=lambda par: (-par[1], par[0]))
+
+    print("\n" + "=" * 55)
+    print(" Conteo de Goles por Selección (De mayor a menor)")
+    print("=" * 55)
+    for posicion, (equipo, cantidad) in enumerate(ranking_equipos, start=1):
+        print(f" {posicion:2d}. {equipo:<18} : {cantidad} gol(es)")
+
+    if indice_penalti != -1:
+        total_goles = penaltis + jugada_regular
+        porc_pen = (penaltis / total_goles * 100) if total_goles > 0 else 0.0
+        porc_reg = (jugada_regular / total_goles * 100) if total_goles > 0 else 0.0
+        print("-" * 55)
+        print(" Comportamiento Penaltis vs. Jugada en Cancha:")
+        print(f" • Jugada regular : {jugada_regular} goles ({porc_reg:.1f}%)")
+        print(f" • Tiro penal     : {penaltis} gol(es) ({porc_pen:.1f}%)")
+        print(f" • Autogoles      : {autogoles} gol(es)")
+    print("=" * 55)
+
+    return ranking_equipos
+        
 #4.MEJOR EQUIPO DE LA HISTORIA
 def mejor_equipo(columnas, filas):
     """
