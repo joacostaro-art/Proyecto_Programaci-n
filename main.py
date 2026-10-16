@@ -74,7 +74,7 @@ def verificador_de_estado(): #verifica si continua en en el apartado de buqueda
 
     else:
         print("Comando no reconocido.")
-        verificador_de_estado() # se llama a si mismo a que la respuesta sea valida
+        return verificador_de_estado() # se llama a si mismo a que la respuesta sea valida
     
 def Buscar_Texto(columnas, filas):
 
