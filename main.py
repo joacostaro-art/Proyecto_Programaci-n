@@ -150,6 +150,7 @@ def estadisticas_basicas(columnas, filas):
         print(f" Minuto Mínimo: {valor_minimo:.0f}'")
         print(f" Minuto Promedio: {promedio:.2f}'")
         print("="*55)
+        return valor_minimo, valor_maximo, promedio
     else:
         print("No se encontraron datos numéricos.")
         return None
