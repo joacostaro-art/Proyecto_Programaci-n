@@ -40,7 +40,7 @@ def cargar_archivo(ruta_documento):
     with open(ruta_documento, mode='r', encoding='utf-8') as f:#Invoca el gestor de contexto en modo lectura, soportando caracteres especiales y tildes
         Lineas = f.readlines()#Lee la totalidad del archivo
         if len(Lineas) > 0:#Verifica si la lista tiene archivos
-            columnas = Lineas[0].strip().split(',')# hagarra los encabezados y los guarda limpios
+            columnas = [col.strip() for col in Lineas[0].strip().split(',')]# hagarra los encabezados y los guarda limpios
 
             for Linea in Lineas[1:]:#itera toda la lista
                 Linea_nueva = Linea.strip()#Limpia la linea
@@ -48,6 +48,7 @@ def cargar_archivo(ruta_documento):
                     arreglo_filas = Linea_nueva.split(',')#Divide toda la fila en un arreglo
                     filas.append(arreglo_filas)#los agrega a la lista previamente creada
     return columnas, filas
+
 #1. BUSCAR POR TEXTO
 def impresor_fila(fila, termino = "SIN VALOR"):#funcion para imprimir las filas y contar los terimnos
     fila_valida = 0
@@ -79,6 +80,8 @@ def verificador_de_estado(): #verifica si continua en en el apartado de buqueda
     
 def Buscar_Texto(columnas, filas):
     estado = True # inicia con estado true para el bucle
+    conteo = 0
+    termino = ""
 
     while estado:
         termino = input("Que termino quieres buscar?: ").strip().casefold() #recibe y limpia la palabra que se busca
@@ -87,14 +90,13 @@ def Buscar_Texto(columnas, filas):
             continue
 
         conteo = 0
-        fila_impresa = 0
         print() #espacio con la siguiene impresion
         impresor_fila(columnas) #imprime los encabezados
         for fila in filas:
             for celda in fila:
-                if termino in celda.casefold() and fila_impresa != fila[0]:
+                if termino in celda.casefold():
                     conteo += impresor_fila(fila, termino)
-                    fila_impresa = fila[0]
+                    break # detiene la revisión de esta fila para no imprimirla ni contarla dos veces
 
         print(f"Se encontraron {conteo} filas con el Termino '{termino}'.")
         estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
@@ -113,7 +115,7 @@ def estadisticas_basicas(columnas, filas):
     #Verificar que la columna exista antes de continuar
     if indice_minuto == -1: 
         print("Error, no se encontró la columna.")
-        return
+        return None
     #Variables acumuladoras:
     total_suma = 0
     cantidad_datos = 0
@@ -227,9 +229,11 @@ def contar_goles(columnas, filas):
  
     # Cada fila del CSV es UN gol, así que basta sumar 1 por fila
     for fila in filas:
-        equipo = fila[i_equipo]
-        # get(equipo, 0): si el equipo aún no está, empieza en 0
-        goles[equipo] = goles.get(equipo, 0) + 1
+        if len(fila) > i_equipo:
+            equipo = fila[i_equipo].strip()
+            if equipo:
+                # get(equipo, 0): si el equipo aún no está, empieza en 0
+                goles[equipo] = goles.get(equipo, 0) + 1
  
     return goles
  
@@ -244,20 +248,23 @@ def armar_marcadores(columnas, filas):
     partidos = {}  # id del partido -> marcador de ese partido
  
     for fila in filas:
-        id_partido = fila[i_partido]
-        equipo = fila[i_equipo]
- 
-        # Primera vez que vemos este partido: creamos su marcador
-        if id_partido not in partidos:
-            partidos[id_partido] = {}
-            # "Argentina vs Chile" -> ["Argentina", "Chile"]
-            # Ambos equipos arrancan en 0 para que el que pierda 0-2
-            # también aparezca en el marcador.
-            for nombre in fila[i_nombre_partido].split(" vs "):
-                partidos[id_partido][nombre] = 0
- 
-        # Sumamos el gol de esta fila al equipo que lo anotó
-        partidos[id_partido][equipo] = partidos[id_partido].get(equipo, 0) + 1
+        if len(fila) > max(i_partido, i_nombre_partido, i_equipo):
+            id_partido = fila[i_partido].strip()
+            equipo = fila[i_equipo].strip()
+            nombre_partido = fila[i_nombre_partido].strip()
+     
+            # Primera vez que vemos este partido: creamos su marcador
+            if id_partido not in partidos:
+                partidos[id_partido] = {}
+                # "Argentina vs Chile" -> ["Argentina", "Chile"]
+                # Ambos equipos arrancan en 0 para que el que pierda 0-2
+                # también aparezca en el marcador.
+                separador = " vs " if " vs " in nombre_partido else " v "
+                for nombre in nombre_partido.split(separador):
+                    partidos[id_partido][nombre.strip()] = 0
+     
+            # Sumamos el gol de esta fila al equipo que lo anotó
+            partidos[id_partido][equipo] = partidos[id_partido].get(equipo, 0) + 1
  
     return partidos
  
@@ -315,9 +322,13 @@ def mostrar_resultado(ranking, titulo):
     mejores = buscar_mejores(ranking)
     if len(mejores) == 1:
         print(f"\nMejor equipo por {titulo}: {mejores[0]}")
-    else:
+    elif len(mejores) > 1:
         # Más de un equipo con el valor máximo -> hay empate
         print(f"\nEmpate en {titulo} entre: {', '.join(mejores)}")
+    else:
+        print(f"\nNo hay datos suficientes para determinar el mejor en {titulo}.")
+
+    return mejores  # retorna la lista de mejores equipos obtenidos
  
  
 def mejor_equipo(columnas, filas):
@@ -326,7 +337,6 @@ def mejor_equipo(columnas, filas):
     y muestra el top 5 con el equipo ganador.
     Devuelve un diccionario con la última consulta hecha (o None si no hizo ninguna).
     """
-    # Los datos no cambian, así que se calculan una sola vez (fuera del menú)
     # Los datos no cambian, así que se calculan una sola vez (fuera del menú)
     goles = contar_goles(columnas, filas)
     ganados = contar_partidos_ganados(armar_marcadores(columnas, filas))
@@ -353,11 +363,12 @@ def mejor_equipo(columnas, filas):
  
         # Con el criterio elegido: ordenar, mostrar y guardar el resultado
         ranking = armar_ranking(datos)
-        mostrar_resultado(ranking, titulo)
+        mejores = mostrar_resultado(ranking, titulo)
         resultado = {"criterio": titulo, "ranking": ranking,
-                     "mejores": buscar_mejores(ranking)}
+                     "mejores": mejores}
  
     return resultado
+
 #FUNCION PRINCIPAL    
 def cargar_menu():
 
@@ -370,6 +381,7 @@ def cargar_menu():
     print("4. Analizar criterios del 'Mejor Equipo de la Historia'")
     print("5. Salir")
     print("="*55)
+    return True # retorna True tras desplegar el menú en consola
 
 def ejecutar_code():
     Data_set = "goals_pequeno.csv"
@@ -378,7 +390,7 @@ def ejecutar_code():
         print(f" Dataset cargado exitosamente: {len(filas)} registros cargados.")
     except FileNotFoundError:# si no puede abrir el archivo dispara esto
         print(f" Error: No se encontró el archivo '{Data_set}'. Verifique la ruta.")
-        return
+        return False # retorna False indicando que no se pudo iniciar el sistema
     
     while True:# inicia el while para siempre hasta que usen el breka
         cargar_menu()
@@ -404,5 +416,7 @@ def ejecutar_code():
             break
         else:
             print(" Opción no válida. Por favor, ingrese un número del 1 al 5.")
+
+    return True # retorna True al finalizar la ejecución de manera exitosa
     
 ejecutar_code()
