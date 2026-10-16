@@ -324,6 +324,7 @@ def ejecutar_code():
                     
         elif opcion == "3":
             print("\n--- AGRUPACIÓN POR SELECCIÓN (CATEGORÍA) ---")
+            agrupar_goles_por_seleccion(columnas, filas)
 
         elif opcion == "4":
             print("\n--- ANÁLISIS CRITERIOS MEJOR EQUIPO DE LA HISTORIA ---")
