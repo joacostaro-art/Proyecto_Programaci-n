@@ -102,6 +102,11 @@ def Buscar_Texto(columnas, filas):
         estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
         contador = 0 #reinicia el contador
 
+def estadisticas_basicas(ruta_archivo, indice_columna):
+    """Lee y extrae del archivo CSV una columna númerica y 
+    cálcula el mínimo, máximo y promedio.
+    """
+    
 def cargar_menu():
 
     print("\n" + "="*55)
