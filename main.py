@@ -164,7 +164,7 @@ def agrupar_goles_por_seleccion(columnas, filas):
     indice_autogol = -1
 
     for i in range(len(columnas)):
-         nombre_col = columnas[i].strip()
+        nombre_col = columnas[i].strip()
         if nombre_col == "team_name":
             indice_equipo = i
         elif nombre_col == "penalty":
@@ -215,7 +215,6 @@ def agrupar_goles_por_seleccion(columnas, filas):
         print(f" • Tiro penal     : {penaltis} gol(es) ({porc_pen:.1f}%)")
         print(f" • Autogoles      : {autogoles} gol(es)")
     print("=" * 55)
-
     return ranking_equipos
         
 #4.MEJOR EQUIPO DE LA HISTORIA
