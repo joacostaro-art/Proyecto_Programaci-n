@@ -1,0 +1,51 @@
+key_id,goal_id,tournament_id,tournament_name,match_id,match_name,match_date,stage_name,group_name,team_id,team_name,team_code,home_team,away_team,player_id,family_name,given_name,shirt_number,player_team_id,player_team_name,player_team_code,minute_label,minute_regulation,minute_stoppage,match_period,own_goal,penalty
+1,G-0001,WC-1930,1930 FIFA Men's World Cup,M-1930-01,France vs Mexico,1930-07-13,group stage,Group 1,T-30,France,FRA,1,0,P-05470,Laurent,Lucien,0,T-30,France,FRA,19',19,0,first half,0,0
+2,G-0002,WC-1930,1930 FIFA Men's World Cup,M-1930-01,France vs Mexico,1930-07-13,group stage,Group 1,T-30,France,FRA,1,0,P-99087,Langiller,Marcel,0,T-30,France,FRA,40',40,0,first half,0,0
+3,G-0003,WC-1930,1930 FIFA Men's World Cup,M-1930-01,France vs Mexico,1930-07-13,group stage,Group 1,T-30,France,FRA,1,0,P-60620,Maschinot,André,0,T-30,France,FRA,43',43,0,first half,0,0
+4,G-0004,WC-1930,1930 FIFA Men's World Cup,M-1930-01,France vs Mexico,1930-07-13,group stage,Group 1,T-46,Mexico,MEX,0,1,P-94135,Carreño,Juan,0,T-46,Mexico,MEX,70',70,0,second half,0,0
+5,G-0005,WC-1930,1930 FIFA Men's World Cup,M-1930-01,France vs Mexico,1930-07-13,group stage,Group 1,T-30,France,FRA,1,0,P-60620,Maschinot,André,0,T-30,France,FRA,87',87,0,second half,0,0
+6,G-0006,WC-1930,1930 FIFA Men's World Cup,M-1930-02,United States vs Belgium,1930-07-13,group stage,Group 4,T-83,United States,USA,1,0,P-65185,McGhee,Bart,0,T-83,United States,USA,23',23,0,first half,0,0
+7,G-0007,WC-1930,1930 FIFA Men's World Cup,M-1930-02,United States vs Belgium,1930-07-13,group stage,Group 4,T-83,United States,USA,1,0,P-37361,Florie,Tom,0,T-83,United States,USA,45',45,0,first half,0,0
+8,G-0008,WC-1930,1930 FIFA Men's World Cup,M-1930-02,United States vs Belgium,1930-07-13,group stage,Group 4,T-83,United States,USA,1,0,P-71973,Patenaude,Bert,0,T-83,United States,USA,69',69,0,second half,0,0
+9,G-0009,WC-1930,1930 FIFA Men's World Cup,M-1930-03,Yugoslavia vs Brazil,1930-07-14,group stage,Group 2,T-87,Yugoslavia,YUG,1,0,P-43349,Tirnanić,Aleksandar,0,T-87,Yugoslavia,YUG,21',21,0,first half,0,0
+10,G-0010,WC-1930,1930 FIFA Men's World Cup,M-1930-03,Yugoslavia vs Brazil,1930-07-14,group stage,Group 2,T-87,Yugoslavia,YUG,1,0,P-43734,Bek,Ivan,0,T-87,Yugoslavia,YUG,30',30,0,first half,0,0
+11,G-0011,WC-1930,1930 FIFA Men's World Cup,M-1930-03,Yugoslavia vs Brazil,1930-07-14,group stage,Group 2,T-09,Brazil,BRA,0,1,P-91171,Preguinho,not applicable,0,T-09,Brazil,BRA,62',62,0,second half,0,0
+12,G-0012,WC-1930,1930 FIFA Men's World Cup,M-1930-04,Romania vs Peru,1930-07-14,group stage,Group 3,T-61,Romania,ROU,1,0,P-91295,Deşu,Adalbert,0,T-61,Romania,ROU,1',1,0,first half,0,0
+13,G-0013,WC-1930,1930 FIFA Men's World Cup,M-1930-04,Romania vs Peru,1930-07-14,group stage,Group 3,T-56,Peru,PER,0,1,P-44010,Souza Ferreira,Luis,0,T-56,Peru,PER,75',75,0,second half,0,0
+14,G-0014,WC-1930,1930 FIFA Men's World Cup,M-1930-04,Romania vs Peru,1930-07-14,group stage,Group 3,T-61,Romania,ROU,1,0,P-18615,Stanciu,Constantin,0,T-61,Romania,ROU,79',79,0,second half,0,0
+15,G-0015,WC-1930,1930 FIFA Men's World Cup,M-1930-04,Romania vs Peru,1930-07-14,group stage,Group 3,T-61,Romania,ROU,1,0,P-70294,Kovács,Miklós,0,T-61,Romania,ROU,89',89,0,second half,0,0
+16,G-0016,WC-1930,1930 FIFA Men's World Cup,M-1930-05,Argentina vs France,1930-07-15,group stage,Group 1,T-03,Argentina,ARG,1,0,P-25760,Monti,Luis,0,T-03,Argentina,ARG,81',81,0,second half,0,0
+17,G-0017,WC-1930,1930 FIFA Men's World Cup,M-1930-06,Chile vs Mexico,1930-07-16,group stage,Group 1,T-13,Chile,CHL,1,0,P-61338,Vidal,Carlos,0,T-13,Chile,CHL,3',3,0,first half,0,0
+18,G-0018,WC-1930,1930 FIFA Men's World Cup,M-1930-06,Chile vs Mexico,1930-07-16,group stage,Group 1,T-13,Chile,CHL,1,0,P-89481,Rosas,Manuel,0,T-46,Mexico,MEX,52',52,0,second half,1,0
+19,G-0019,WC-1930,1930 FIFA Men's World Cup,M-1930-06,Chile vs Mexico,1930-07-16,group stage,Group 1,T-13,Chile,CHL,1,0,P-61338,Vidal,Carlos,0,T-13,Chile,CHL,65',65,0,second half,0,0
+20,G-0020,WC-1930,1930 FIFA Men's World Cup,M-1930-07,Yugoslavia vs Bolivia,1930-07-17,group stage,Group 2,T-87,Yugoslavia,YUG,1,0,P-43734,Bek,Ivan,0,T-87,Yugoslavia,YUG,60',60,0,second half,0,0
+21,G-0021,WC-1930,1930 FIFA Men's World Cup,M-1930-07,Yugoslavia vs Bolivia,1930-07-17,group stage,Group 2,T-87,Yugoslavia,YUG,1,0,P-75929,Marjanović,Blagoje,0,T-87,Yugoslavia,YUG,65',65,0,second half,0,0
+22,G-0022,WC-1930,1930 FIFA Men's World Cup,M-1930-07,Yugoslavia vs Bolivia,1930-07-17,group stage,Group 2,T-87,Yugoslavia,YUG,1,0,P-43734,Bek,Ivan,0,T-87,Yugoslavia,YUG,67',67,0,second half,0,0
+23,G-0023,WC-1930,1930 FIFA Men's World Cup,M-1930-07,Yugoslavia vs Bolivia,1930-07-17,group stage,Group 2,T-87,Yugoslavia,YUG,1,0,P-33565,Vujadinović,Đorđe,0,T-87,Yugoslavia,YUG,85',85,0,second half,0,0
+24,G-0024,WC-1930,1930 FIFA Men's World Cup,M-1930-08,United States vs Paraguay,1930-07-17,group stage,Group 4,T-83,United States,USA,1,0,P-71973,Patenaude,Bert,0,T-83,United States,USA,10',10,0,first half,0,0
+25,G-0025,WC-1930,1930 FIFA Men's World Cup,M-1930-08,United States vs Paraguay,1930-07-17,group stage,Group 4,T-83,United States,USA,1,0,P-71973,Patenaude,Bert,0,T-83,United States,USA,15',15,0,first half,0,0
+26,G-0026,WC-1930,1930 FIFA Men's World Cup,M-1930-08,United States vs Paraguay,1930-07-17,group stage,Group 4,T-83,United States,USA,1,0,P-71973,Patenaude,Bert,0,T-83,United States,USA,50',50,0,second half,0,0
+27,G-0027,WC-1930,1930 FIFA Men's World Cup,M-1930-09,Uruguay vs Peru,1930-07-18,group stage,Group 3,T-84,Uruguay,URY,1,0,P-54697,Castro,Héctor,0,T-84,Uruguay,URY,65',65,0,second half,0,0
+28,G-0028,WC-1930,1930 FIFA Men's World Cup,M-1930-10,Chile vs France,1930-07-19,group stage,Group 1,T-13,Chile,CHL,1,0,P-08459,Subiabre,Guillermo,0,T-13,Chile,CHL,67',67,0,second half,0,0
+29,G-0029,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-03,Argentina,ARG,1,0,P-56486,Stábile,Guillermo,0,T-03,Argentina,ARG,8',8,0,first half,0,0
+30,G-0030,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-03,Argentina,ARG,1,0,P-76546,Zumelzú,Adolfo,0,T-03,Argentina,ARG,12',12,0,first half,0,0
+31,G-0031,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-03,Argentina,ARG,1,0,P-56486,Stábile,Guillermo,0,T-03,Argentina,ARG,17',17,0,first half,0,0
+32,G-0032,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-46,Mexico,MEX,0,1,P-89481,Rosas,Manuel,0,T-46,Mexico,MEX,42',42,0,first half,0,1
+33,G-0033,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-03,Argentina,ARG,1,0,P-37326,Varallo,Francisco,0,T-03,Argentina,ARG,53',53,0,second half,0,0
+34,G-0034,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-03,Argentina,ARG,1,0,P-76546,Zumelzú,Adolfo,0,T-03,Argentina,ARG,55',55,0,second half,0,0
+35,G-0035,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-46,Mexico,MEX,0,1,P-89481,Rosas,Manuel,0,T-46,Mexico,MEX,65',65,0,second half,0,0
+36,G-0036,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-46,Mexico,MEX,0,1,P-31066,Gayón,Roberto,0,T-46,Mexico,MEX,75',75,0,second half,0,0
+37,G-0037,WC-1930,1930 FIFA Men's World Cup,M-1930-11,Argentina vs Mexico,1930-07-19,group stage,Group 1,T-03,Argentina,ARG,1,0,P-56486,Stábile,Guillermo,0,T-03,Argentina,ARG,80',80,0,second half,0,0
+38,G-0038,WC-1930,1930 FIFA Men's World Cup,M-1930-12,Brazil vs Bolivia,1930-07-20,group stage,Group 2,T-09,Brazil,BRA,1,0,P-83987,Moderato,not applicable,0,T-09,Brazil,BRA,37',37,0,first half,0,0
+39,G-0039,WC-1930,1930 FIFA Men's World Cup,M-1930-12,Brazil vs Bolivia,1930-07-20,group stage,Group 2,T-09,Brazil,BRA,1,0,P-91171,Preguinho,not applicable,0,T-09,Brazil,BRA,57',57,0,second half,0,0
+40,G-0040,WC-1930,1930 FIFA Men's World Cup,M-1930-12,Brazil vs Bolivia,1930-07-20,group stage,Group 2,T-09,Brazil,BRA,1,0,P-83987,Moderato,not applicable,0,T-09,Brazil,BRA,73',73,0,second half,0,0
+41,G-0041,WC-1930,1930 FIFA Men's World Cup,M-1930-12,Brazil vs Bolivia,1930-07-20,group stage,Group 2,T-09,Brazil,BRA,1,0,P-91171,Preguinho,not applicable,0,T-09,Brazil,BRA,83',83,0,second half,0,0
+42,G-0042,WC-1930,1930 FIFA Men's World Cup,M-1930-13,Paraguay vs Belgium,1930-07-20,group stage,Group 4,T-55,Paraguay,PRY,1,0,P-06201,Vargas Peña,Luis,0,T-55,Paraguay,PRY,40',40,0,first half,0,0
+43,G-0043,WC-1930,1930 FIFA Men's World Cup,M-1930-14,Uruguay vs Romania,1930-07-21,group stage,Group 3,T-84,Uruguay,URY,1,0,P-38674,Dorado,Pablo,0,T-84,Uruguay,URY,7',7,0,first half,0,0
+44,G-0044,WC-1930,1930 FIFA Men's World Cup,M-1930-14,Uruguay vs Romania,1930-07-21,group stage,Group 3,T-84,Uruguay,URY,1,0,P-44201,Scarone,Héctor,0,T-84,Uruguay,URY,26',26,0,first half,0,0
+45,G-0045,WC-1930,1930 FIFA Men's World Cup,M-1930-14,Uruguay vs Romania,1930-07-21,group stage,Group 3,T-84,Uruguay,URY,1,0,P-57352,Anselmo,Peregrino,0,T-84,Uruguay,URY,31',31,0,first half,0,0
+46,G-0046,WC-1930,1930 FIFA Men's World Cup,M-1930-14,Uruguay vs Romania,1930-07-21,group stage,Group 3,T-84,Uruguay,URY,1,0,P-18628,Cea,Pedro,0,T-84,Uruguay,URY,35',35,0,first half,0,0
+47,G-0047,WC-1930,1930 FIFA Men's World Cup,M-1930-15,Argentina vs Chile,1930-07-22,group stage,Group 1,T-03,Argentina,ARG,1,0,P-56486,Stábile,Guillermo,0,T-03,Argentina,ARG,12',12,0,first half,0,0
+48,G-0048,WC-1930,1930 FIFA Men's World Cup,M-1930-15,Argentina vs Chile,1930-07-22,group stage,Group 1,T-03,Argentina,ARG,1,0,P-56486,Stábile,Guillermo,0,T-03,Argentina,ARG,13',13,0,first half,0,0
+49,G-0049,WC-1930,1930 FIFA Men's World Cup,M-1930-15,Argentina vs Chile,1930-07-22,group stage,Group 1,T-13,Chile,CHL,0,1,P-08459,Subiabre,Guillermo,0,T-13,Chile,CHL,15',15,0,first half,0,0
+50,G-0050,WC-1930,1930 FIFA Men's World Cup,M-1930-15,Argentina vs Chile,1930-07-22,group stage,Group 1,T-03,Argentina,ARG,1,0,P-23897,Evaristo,Mario,0,T-03,Argentina,ARG,51',51,0,second half,0,0
