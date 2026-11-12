@@ -1,7 +1,8 @@
+import archivos
 #1. BUSCAR POR TEXTO
 def verificador_de_estado(): #Esta funcion pregunta al usuario si quiere volvera buscar
 
-    print("1. Salir y guardar la busqueda.")
+    print("1. Salir de la busqueda.")
     print("2. Volver a buscar.")
 
     YN = input("Escribe un numero valido: ").strip().casefold() #pregunta al usuario que quiere hacer
@@ -51,8 +52,9 @@ def Buscar_Texto(columnas, filas):
         conteo = impresor_fila(filasParaImprimir, termino) # imprime  todas las  filas que coincidan
 
         print(f"Se encontraron {conteo} filas con el Termino '{termino}'.")
+        archivos.registrar_consulta(termino, conteo)
         estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
-    return filasParaImprimir #retorna la lista para guarda la ultima busqueda
+    return filasParaImprimir #retorna la lista de los resultados encontrados
 
 #2. AGRUPAR GOLES POR SELECCIÓN
 def estadisticas_basicas(columnas, filas):
@@ -79,7 +81,7 @@ def estadisticas_basicas(columnas, filas):
     #valida si recolecto datos
     if not TodosLosMinutos:
         print("Error, no se encontraron datos.")
-        
+
     # Operaciones para hallar los datos
     ordenados = sorted(TodosLosMinutos) #Ordena los numero de mayo a menor
     valor_maximo = ordenados[-1]

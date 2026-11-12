@@ -15,6 +15,7 @@ Integrante 6:
 Documento de contribuciones (1 página) + Verificación y pruebas del repositorio
 """
 import archivos
+import analisis
 
 def cargar_archivo(ruta_documento):
     """
@@ -49,113 +50,6 @@ def cargar_archivo(ruta_documento):
                     arreglo_filas = Linea_nueva.split(',')#Divide toda la fila en un arreglo
                     filas.append(arreglo_filas)#los agrega a la lista previamente creada
     return columnas, filas
-
-#1. BUSCAR POR TEXTO
-def verificador_de_estado(): #verifica si continua en en el apartado de buqueda
-
-    YN = input("Deseas volver a buscar? Y/N: ").strip().casefold() #pregunta al usuario que quiere hacer
-
-    if YN == "n":
-        return False 
-    
-    elif YN == "y":
-        return True 
-
-    else:
-        print("Comando no reconocido.")
-        return verificador_de_estado() # se llama a si mismo a que la respuesta sea valida
-  
-def impresor_fila(fila, termino = "SIN VALOR"):#funcion para imprimir las filas y contar los terimnos
-    fila_valida = 0
-    
-    for celda in fila:
-        if termino in celda.casefold():
-            print("|", f"--> {celda} <--", end=" ")#imprime y señala la celda
-            fila_valida = 1 
-        else:
-            print("|", celda, end=" ") #imprime la celda sin señalar
-    print() # da espacio al imprimer el siguiene enunciado
-    print() 
-    return fila_valida
-
-    
-def Buscar_Texto(columnas, filas):
-    estado = True # inicia con estado true para el bucle
-    conteo = 0
-    termino = ""
-
-    while estado:
-        termino = input("Que termino quieres buscar?: ").strip().casefold() #recibe y limpia la palabra que se busca
-        if not termino:
-            print("Por favor ingresa un término válido (no vacío).")
-            continue
-
-        conteo = 0
-        print() #espacio con la siguiene impresion
-        impresor_fila(columnas) #imprime los encabezados
-        for fila in filas:
-            for celda in fila:
-                if termino in celda.casefold():
-                    conteo += impresor_fila(fila, termino)
-                    break # detiene la revisión de esta fila para no imprimirla ni contarla dos veces
-
-        print(f"Se encontraron {conteo} filas con el Termino '{termino}'.")
-        archivos.registrar_consulta(termino, conteo)
-        estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
-    return conteo, termino
-
-def estadisticas_basicas(columnas, filas):
-    """Función Obligatoria #2:
-    Lee y extrae del archivo CSV con la columna "minute_regulation" y 
-    cálcula el mínimo, máximo y promedio.
-    """
-    indice_minuto = -1 #Buscar columna objetivo
-    for i in range(len(columnas)):
-        if columnas[i].strip() == "minute_regulation":
-            indice_minuto = i
-            break
-    #Verificar que la columna exista antes de continuar
-    if indice_minuto == -1: 
-        print("Error, no se encontró la columna.")
-        return None
-    #Variables acumuladoras:
-    total_suma = 0
-    cantidad_datos = 0
-    valor_maximo = None 
-    valor_minimo = None
-    
-    for fila in filas: #Recorrer dato por dato según la columna
-        if len(fila) > indice_minuto: #Verificar que la fila si tenga suficientes elementos
-            valor_texto = fila[indice_minuto].strip()
-            if valor_texto != "": #Ignorar si hay algun dato vacio
-                try:
-                    valor_numerico = float(valor_texto) #Si llega a ver decimales, se convierte a float.
-                    
-                    total_suma += valor_numerico #Acumulador para el promedio
-                    cantidad_datos += 1
-                    #Buscar máximo:
-                    if valor_maximo is None or valor_numerico > valor_maximo: 
-                        valor_maximo = valor_numerico
-                    #Buscar mínimo:
-                    if valor_minimo is None or valor_numerico < valor_minimo:
-                        valor_minimo = valor_numerico
-                except ValueError: #Si llega a ver un campo con texto, ignorarlo.
-                    pass
-    #Mostrar resultados finales:
-    if cantidad_datos > 0:
-        promedio = total_suma / cantidad_datos
-        print("\n" + "="*55)
-        print(" Máximo, Mínimo y Promedio: Minuto de anotación del gol")
-        print("="*55)
-        print(f" Total de datos procesados: {cantidad_datos}")
-        print(f" Minuto Máximo: {valor_maximo:.0f}'")
-        print(f" Minuto Mínimo: {valor_minimo:.0f}'")
-        print(f" Minuto Promedio: {promedio:.2f}'")
-        print("="*55)
-        return valor_minimo, valor_maximo, promedio
-    else:
-        print("No se encontraron datos numéricos.")
-        return None
                     
 #3. AGRUPAR GOLES POR SELECCIÓN
 def agrupar_goles_por_seleccion(columnas, filas):
@@ -401,11 +295,11 @@ def ejecutar_code():
             
         if opcion == "1":
             print("\n--- BÚSQUEDA POR TEXTO ---")
-            Buscar_Texto(columnas, filas)
+            analisis.Buscar_Texto(columnas, filas)
                     
         elif opcion == "2":
             print("\n--- ESTADÍSTICAS BÁSICAS DEL MINUTO DE REGULACIÓN ---")
-            estadisticas_basicas(columnas, filas)
+            analisis.estadisticas_basicas(columnas, filas)
                     
         elif opcion == "3":
             print("\n--- AGRUPACIÓN POR SELECCIÓN (CATEGORÍA) ---")
