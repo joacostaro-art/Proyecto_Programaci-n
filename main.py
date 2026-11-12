@@ -100,6 +100,7 @@ def Buscar_Texto(columnas, filas):
                     break # detiene la revisión de esta fila para no imprimirla ni contarla dos veces
 
         print(f"Se encontraron {conteo} filas con el Termino '{termino}'.")
+        archivos.registrar_consulta(termino, conteo)
         estado = verificador_de_estado() #funcion que define si el buscador se acaba o no
     return conteo, termino
 
@@ -380,7 +381,8 @@ def cargar_menu():
     print("2. Ver estadísticas básicas del minuto de los goles")
     print("3. Agrupar goles por Selección (Categoría)")
     print("4. Analizar criterios del 'Mejor Equipo de la Historia'")
-    print("5. Salir")
+    print("5. Ver historial de Consultas")
+    print("6. Salir")
     print("="*55)
     return True # retorna True tras desplegar el menú en consola
 
@@ -395,7 +397,7 @@ def ejecutar_code():
     
     while True:# inicia el while para siempre hasta que usen el breka
         cargar_menu()
-        opcion = input(" Seleccione una opción (1-5): ").strip()
+        opcion = input(" Seleccione una opción (1-6): ").strip()
             
         if opcion == "1":
             print("\n--- BÚSQUEDA POR TEXTO ---")
@@ -418,7 +420,7 @@ def ejecutar_code():
             print("\n Saliendo del sistema DataLab. ¡Hasta luego!")
             break
         else:
-            print(" Opción no válida. Por favor, ingrese un número del 1 al 5.")
+            print(" Opción no válida. Por favor, ingrese un número del 1 al 6.")
 
     return True # retorna True al finalizar la ejecución de manera exitosa
     

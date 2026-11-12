@@ -117,4 +117,4 @@ def historial_consultas():
             
             print("------------------------------\n")
     except FileNotFoundError:
-        print("\Aún no hay consultas registradas o el archivo no existe.")
+        print("\nAún no hay consultas registradas o el archivo no existe.")
