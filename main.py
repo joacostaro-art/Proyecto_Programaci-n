@@ -201,7 +201,7 @@ def agrupar_goles_por_seleccion(columnas, filas):
     ranking_equipos = sorted(conteo_equipos.items(), key=lambda par: (-par[1], par[0]))
 
     print("\n" + "=" * 55)
-    print(" Conteo de Goles por Selección (De mayor a menor)")
+    print(" Conteo de Goles por Selección (De mayor a menor)  ")
     print("=" * 55)
     for posicion, (equipo, cantidad) in enumerate(ranking_equipos, start=1):
         print(f" {posicion:2d}. {equipo:<18} : {cantidad} gol(es)")
