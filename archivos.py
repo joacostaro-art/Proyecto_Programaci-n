@@ -1,6 +1,7 @@
 import csv 
 import json
 import os
+from datetime import datetime
 
 def cargar_dataset(ruta_documento):
     """
@@ -87,3 +88,33 @@ def cargar_resultado_anterior(ruta_archivo):
     else:
         print(f"Error: El archivo {ruta_archivo} no tiene una extensión válida (.csv o .json).")
         return None
+    
+def registrar_consulta(termino_buscado, numero_resultados):
+    """Función para registrar las consultas en el historial con fecha y hora."""
+    fecha_hora = datetime.now().strftime("%Y-%m-%d %H:%M")
+    with open('historial.csv', mode='a', newline="", encoding='utf-8') as archivo:
+        escritor = csv.writer(archivo)
+        
+        texto_resultados = str(numero_resultados) + " resultados"
+        fila_guardar = [fecha_hora, termino_buscado, texto_resultados]
+        escritor.writerow(fila_guardar)
+        
+def historial_consultas():
+    """Función para ver el historial de consultas que se han hecho con sus respectivas fechas"""
+    try:
+        with open('historial.csv', mode='r', encoding='utf-8') as archivo:
+            lector = csv.reader(archivo)
+            print("\nHISTORIAL DE CONSULTAS: ")
+            
+            registro_vacio = True
+            for fila in lector:
+                if fila != []:
+                    print(f"{fila[0]}, \"{fila[1]}\", {fila[2]}")
+                    registro_vacio = False
+            
+            if registro_vacio == True:
+                print(f"No hay registros en el historial.")        
+            
+            print("------------------------------\n")
+    except FileNotFoundError:
+        print("\Aún no hay consultas registradas o el archivo no existe.")

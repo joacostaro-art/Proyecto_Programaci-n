@@ -14,6 +14,7 @@ README.md, Video y Producto Creativo (Póster Digital)
 Integrante 6:
 Documento de contribuciones (1 página) + Verificación y pruebas del repositorio
 """
+import archivos
 
 def cargar_archivo(ruta_documento):
     """
@@ -412,6 +413,8 @@ def ejecutar_code():
             print("\n--- ANÁLISIS CRITERIOS MEJOR EQUIPO DE LA HISTORIA ---")
             mejor_equipo(columnas, filas)
         elif opcion == "5":
+            archivos.historial_consultas()
+        elif opcion == "6":
             print("\n Saliendo del sistema DataLab. ¡Hasta luego!")
             break
         else:
