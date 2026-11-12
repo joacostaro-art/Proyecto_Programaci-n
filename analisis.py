@@ -65,17 +65,21 @@ def estadisticas_basicas(columnas, filas):
         print("Error, no se encontró la columna.")
         return None
     #Variables acumuladoras:
-    TodosLosMinutos = ()
+    TodosLosMinutos = []
     
     for fila in filas: #Recorrer dato por dato según la columna
         valor_texto = fila.get("minute_regulation").strip()
         if valor_texto != "": #Ignorar si hay algun dato vacio
             try:
                 valor_numerico = float(valor_texto) #Si llega a ver decimales, se convierte a float.
-                TodosLosMinutos.add(valor_numerico)  
+                TodosLosMinutos.append(valor_numerico)  
             except ValueError: #Si llega a ver un campo con texto, ignorarlo.
                 pass
 
+    #valida si recolecto datos
+    if not TodosLosMinutos:
+        print("Error, no se encontraron datos.")
+        
     # Operaciones para hallar los datos
     ordenados = sorted(TodosLosMinutos) #Ordena los numero de mayo a menor
     valor_maximo = ordenados[-1]
@@ -97,3 +101,44 @@ def estadisticas_basicas(columnas, filas):
     else:
         print("No se encontraron datos numéricos.")
         return None
+def generar_resumen_dataset(filas):
+    """
+    Genera un resumen global del dataset.
+    Retorna un diccionario con total de registros, selecciones únicas y estadísticas.
+    """
+    selecciones_unicas = set() # Uso de 'set' para evitar duplicados automáticamente
+    minutos_validos = []
+    
+    for fila in filas:
+        equipo = fila.get("team_name", "").strip()
+        if equipo:
+            selecciones_unicas.add(equipo)
+            
+        valor_minuto = fila.get("minute_regulation", "").strip()
+        if valor_minuto:
+            try:
+                minutos_validos.append(float(valor_minuto))
+            except ValueError:
+                pass # Ignorar celdas que no sean numéricas
+                    
+    
+    if minutos_validos:
+        maximo = max(minutos_validos)
+        minimo = min(minutos_validos)
+        promedio = sum(minutos_validos) / len(minutos_validos)
+    else:
+        maximo = minimo = promedio = 0
+
+    
+    resumen = {
+        "total_registros_procesados": len(filas),
+        "total_selecciones_unicas": len(selecciones_unicas),
+        "lista_selecciones": sorted(list(selecciones_unicas)),
+        "estadisticas_minuto_gol": {
+            "maximo": round(maximo, 1),
+            "minimo": round(minimo, 1),
+            "promedio": round(promedio, 2)
+        }
+    }
+    
+    return resumen
