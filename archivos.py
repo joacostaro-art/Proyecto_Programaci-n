@@ -40,8 +40,8 @@ def guardar_resultado_csv(ruta_archivo, datos):
             with open(ruta_archivo, mode='w', newline='', encoding='utf-8') as f:
                 escritor = csv.writer(f)
                 escritor.writerows(datos)
-            print(f"Resultados guardados correctamente en {ruta_archivo}.")
-            return True
+        print(f"Resultados guardados correctamente en {ruta_archivo}.")
+        return True
     except Exception as e:
         print(f"Error al guardar el archivo {ruta_archivo}: {e}")
         return False
