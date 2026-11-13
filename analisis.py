@@ -145,7 +145,7 @@ def generar_resumen_dataset(filas):
     
     return resumen
 # 3. AGRUPAR GOLES POR SELECCIÓN
-    def agrupar_goles_por_seleccion(columnas, filas):
+def agrupar_goles_por_seleccion(columnas, filas):
     """
     Agrupa y cuenta cuántos goles hay por cada seleccion nacional ordenados de mayor a menor
     y calcula la proporción de penaltis frente a jugada en cancha"""
