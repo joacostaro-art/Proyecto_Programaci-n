@@ -30,7 +30,7 @@ def impresor_fila(filas, termino = "SIN VALOR"):#funcion para imprimir las filas
                 print("|", f"--> {celda} <--", end=" ")#imprime y señala la celda
             else:
                 print("|", celda, end=" ") #imprime la celda sin señalar
-    print() # da espacio al imprimer el siguiene enunciado
+        print() # da espacio al imprimer el siguiene enunciado
     print() 
     return len(filas)
 
@@ -47,9 +47,9 @@ def Buscar_Texto(columnas, filas):
         for fila in filas: 
             for celda in fila.values():
                 if termino in celda.casefold():
-                    filasParaImprimir.append(tuple(fila.values()))#  agrega  los valores del diccionario como una lista para imprimir
+                    filasParaImprimir.append(fila)
                     break # detiene la revisión de esta fila para no meterla en la lista dos veces
-        conteo = impresor_fila(filasParaImprimir, termino) # imprime  todas las  filas que coincidan
+        conteo = impresor_fila([tuple(f.values()) for f in filasParaImprimir], termino) # imprime  todas las  filas que coincidan
 
         print(f"Se encontraron {conteo} filas con el Termino '{termino}'.")
         archivos.registrar_consulta(termino, conteo)
@@ -81,7 +81,7 @@ def estadisticas_basicas(columnas, filas):
     #valida si recolecto datos
     if not TodosLosMinutos:
         print("Error, no se encontraron datos.")
-
+        return None
     # Operaciones para hallar los datos
     ordenados = sorted(TodosLosMinutos) #Ordena los numero de mayo a menor
     valor_maximo = ordenados[-1]
@@ -145,7 +145,58 @@ def generar_resumen_dataset(filas):
     
     return resumen
 # 3. AGRUPAR GOLES POR SELECCIÓN
-    #####
+    def agrupar_goles_por_seleccion(columnas, filas):
+    """
+    Agrupa y cuenta cuántos goles hay por cada seleccion nacional ordenados de mayor a menor
+    y calcula la proporción de penaltis frente a jugada en cancha"""
+    # Sin la columna del equipo no se puede agrupar
+    if "team_name" not in columnas:
+        print("Error: No se encontró la columna 'team_name'.")
+        return []
+
+    conteo_equipos = {}  # equipo -> cantidad de goles
+    penaltis = 0
+    jugada_regular = 0
+    autogoles = 0
+
+    for fila in filas:
+        # Contar el gol para el equipo de esta fila
+        equipo = fila.get("team_name", "").strip()
+        if equipo != "":
+            conteo_equipos[equipo] = conteo_equipos.get(equipo, 0) + 1
+
+        # Penalti o jugada regular (solo si el dataset trae esa columna)
+        if "penalty" in columnas:
+            if fila.get("penalty", "").strip() == "1":
+                penaltis += 1
+            else:
+                jugada_regular += 1
+
+        # Autogoles (solo si el dataset trae esa columna)
+        if "own_goal" in columnas:
+            if fila.get("own_goal", "").strip() == "1":
+                autogoles += 1
+
+    # Mayor a menor; si empatan, orden alfabético
+    ranking_equipos = sorted(conteo_equipos.items(), key=lambda par: (-par[1], par[0]))
+
+    print("\n" + "=" * 55)
+    print(" Conteo de Goles por Selección (De mayor a menor)  ")
+    print("=" * 55)
+    for posicion, (equipo, cantidad) in enumerate(ranking_equipos, start=1):
+        print(f" {posicion:2d}. {equipo:<18} : {cantidad} gol(es)")
+
+    if "penalty" in columnas:
+        total_goles = penaltis + jugada_regular
+        porc_pen = (penaltis / total_goles * 100) if total_goles > 0 else 0.0
+        porc_reg = (jugada_regular / total_goles * 100) if total_goles > 0 else 0.0
+        print("-" * 55)
+        print(" Comportamiento Penaltis vs. Jugada en Cancha:")
+        print(f" • Jugada regular : {jugada_regular} goles ({porc_reg:.1f}%)")
+        print(f" • Tiro penal     : {penaltis} gol(es) ({porc_pen:.1f}%)")
+        print(f" • Autogoles      : {autogoles} gol(es)")
+    print("=" * 55)
+    return ranking_equipos
 # 4. MEJOR EQUIPO DE LA HISTORIA  (migrado desde main.py)
 def contar_goles(columnas, filas):
     """Recorre las filas y devuelve {equipo: total de goles}."""
