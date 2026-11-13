@@ -1,5 +1,5 @@
 # ⚽ DataLab: Goles de la Copa Mundial (The Com)
-Herramienta de análisis de datos desarrollada en el leguaje Python, sirve para, la consulta, el recorrido y la estadistica de una base de datos compuesta de los goles hechos en toda la historia de los mundiales de futbol. 
+Herramienta modular de análisis de datos desarrollada en Python 3 para la consulta, el recorrido y la estadística de una base de datos compuesta por los goles hechos en toda la historia de la Copa Mundial Masculina de la FIFA. 
 
 
 ## 👥 Integrantes del Grupo (The Com)
@@ -12,7 +12,7 @@ Herramienta de análisis de datos desarrollada en el leguaje Python, sirve para,
 
 ## 📊 Dataset
 
-* **Descripción y Origen:** Registro histórico sobre goles anotados en ediciones de la Copa Mundial Masculina de la FIFA. Contiene variables cualitativas y cuantitativas asociadas a los partidos, selecciones, jugadores y el tiempo de juego.
+* **Descripción y Origen:** Registro histórico (obtenido de Kaggle) sobre goles anotados en ediciones de la Copa Mundial Masculina de la FIFA. Contiene variables cualitativas y cuantitativas asociadas a los partidos, selecciones, jugadores y el tiempo de juego.
 * **Archivos disponibles en el repositorio:**
   * `goals_pequeno.csv`: compuesto por las primeras 50 filas de la base de datos original
   * `goals_completo.csv`: Dataset completo con más de 200 registros.
